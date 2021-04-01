@@ -1,0 +1,11 @@
+{
+  "courses": [
+    {
+      "id": 2,
+      "title": "cvbcvb",
+      "description": "cbcvb",
+      "percentComplete": 25,
+      "favorite": false
+    }
+  ]
+}
