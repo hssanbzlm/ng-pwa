@@ -16,6 +16,7 @@ export class CoursesService {
   }
 
   createCourse(course: Course) {
+    course.id = Math.random() * 99 + 1;
     return this.http.post<Course>(BASE_URL, course);
   }
 

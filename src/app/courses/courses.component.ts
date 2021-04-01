@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Course } from '../shared/interfaces/course.interface';
@@ -10,15 +10,18 @@ import { CoursesService } from '../shared/services/courses.service';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]>;
+export class CoursesComponent implements OnInit, OnDestroy {
   selectedCourse: Course;
+  courses: Course[];
+  sub: Subscription;
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
     this.loadCourses();
-    this.resetCourse();
+  }
+  ngOnDestroy() {
+    if (this.sub) this.sub.unsubscribe();
   }
 
   selectCourse(course: Course) {
@@ -26,7 +29,11 @@ export class CoursesComponent implements OnInit {
   }
 
   loadCourses() {
-    this.courses$ = this.coursesService.getAllCourses();
+    let courses$: Observable<Course[]>;
+    courses$ = this.coursesService.getAllCourses();
+    courses$.subscribe((courses) => {
+      this.courses = courses;
+    });
   }
 
   saveCourse(course: Course) {
@@ -39,23 +46,39 @@ export class CoursesComponent implements OnInit {
   }
 
   updateCourse(course: Course) {
-    this.coursesService
+    this.sub = this.coursesService
       .updateCourse(course)
-      .pipe(tap(() => this.loadCourses()))
+      .pipe(
+        tap(() =>
+          this.courses.splice(
+            this.courses.findIndex((c) => c.id == course.id),
+            1,
+            course
+          )
+        )
+      )
       .subscribe();
   }
 
   createCourse(course: Course) {
-    this.coursesService
+    this.sub = this.coursesService
       .createCourse(course)
-      .pipe(tap(() => this.loadCourses()))
+      .pipe(tap(() => this.courses.push(course)))
       .subscribe();
   }
 
   deleteCourse(id: number) {
-    this.coursesService
+    this.sub = this.coursesService
       .deleteCourse(id)
-      .pipe(tap(() => this.loadCourses()))
+      .pipe(
+        tap(() => {
+          this.courses.splice(
+            this.courses.findIndex((c) => c.id == id),
+            1
+          );
+          this.resetCourse();
+        })
+      )
       .subscribe();
   }
 
