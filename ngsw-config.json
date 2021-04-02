@@ -26,5 +26,19 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "Requests",
+      "urls": [
+        "/courses"
+      ],
+      "cacheConfig": {
+        "maxAge": "3d",
+        "strategy": "freshness",
+        "maxSize": 100,
+        "timeout": "0u"
+      }
+    }
   ]
 }

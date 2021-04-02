@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { Course } from '../shared/interfaces/course.interface';
 import { CoursesService } from '../shared/services/courses.service';
 
