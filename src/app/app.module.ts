@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material.module';
-import { AuthService } from './shared/services/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
 
 @NgModule({
   imports: [
@@ -22,9 +23,11 @@ import { environment } from '../environments/environment';
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),
+    AuthModule.forRoot({
+      ...env.auth,
+    }),
   ],
   declarations: [AppComponent, HomeComponent],
-  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
