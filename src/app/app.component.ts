@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { shareReplay } from 'rxjs/operators';
 
-import { AuthService } from './shared/services/auth.service';
-
+import { AuthenticationService } from '../app/shared/services/authentication.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,9 +15,10 @@ export class AppComponent {
     { path: '/courses', icon: 'view_list', title: 'Courses' },
   ];
 
-  isAuthenticated$ = this.authService.isAuthenticated$.pipe(shareReplay(1));
-
-  constructor(private authService: AuthService, private updates: SwUpdate) {
+  constructor(
+    public authService: AuthenticationService,
+    private updates: SwUpdate
+  ) {
     if (updates.isEnabled) {
       updates.available.subscribe(() => {
         if (confirm('New changes are available, do you want to reload ??')) {
@@ -30,5 +30,10 @@ export class AppComponent {
 
   logout() {
     this.authService.logout();
+    console.log('LOGOUT');
+  }
+  login() {
+    this.authService.login();
+    console.log('LOGIN');
   }
 }

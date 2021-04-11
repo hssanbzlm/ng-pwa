@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
   <span>
     <button
-      *ngIf="isAuthenticated$ | async"
+      *ngIf="authService.isAuthenticated() | async"
       mat-mini-fab
       (click)="sidenav?.toggle()"
     >
@@ -16,20 +16,25 @@
   </span>
   <span class="spacer"></span>
   <button
-    *ngIf="isAuthenticated$ | async"
+    *ngIf="authService.isAuthenticated() | async; else elseBlock"
     (click)="logout()"
     class="login"
     mat-mini-fab
   >
     <mat-icon>person</mat-icon>
   </button>
+  <ng-template #elseBlock>
+    <button (click)="login()" class="login" mat-mini-fab>
+      <mat-icon>person</mat-icon>
+    </button>
+  </ng-template>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav
     #sidenav
     mode="side"
-    [opened]="isAuthenticated$ | async"
+    [opened]="authService.isAuthenticated() | async"
     class="app-sidenav"
   >
     <nav>
