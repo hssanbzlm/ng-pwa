@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { shareReplay } from 'rxjs/operators';
 
-import { AuthenticationService } from '../app/shared/services/authentication.service';
+import { Auth0AdapterService } from './shared/services/auth0-adapter.service';
+import { CustomAuthAdapterService } from './shared/services/custom-auth-adapter.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +18,9 @@ export class AppComponent {
   ];
 
   constructor(
-    public authService: AuthenticationService,
-    private updates: SwUpdate
+    public authService: Auth0AdapterService,
+    private updates: SwUpdate,
+    private router: Router
   ) {
     if (updates.isEnabled) {
       updates.available.subscribe(() => {
@@ -33,7 +36,14 @@ export class AppComponent {
     console.log('LOGOUT');
   }
   login() {
-    this.authService.login();
-    console.log('LOGIN');
+    if (this.authService.type == 'CUSTOM_AUTH')
+      this.router.navigateByUrl('/login');
+    else this.authService.login();
+  }
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+  isLoading() {
+    return this.authService.isLoading();
   }
 }

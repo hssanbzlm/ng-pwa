@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
-import {
-  NoPreloading,
-  PreloadAllModules,
-  RouterModule,
-  Routes,
-} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 //import { AuthGuard } from './shared/guards/auth.guard';
@@ -14,6 +9,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { preload: true },
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'courses',

@@ -16,7 +16,7 @@
   </span>
   <span class="spacer"></span>
   <button
-    *ngIf="authService.isAuthenticated() | async; else elseBlock"
+    *ngIf="isAuthenticated() | async; else elseBlock"
     (click)="logout()"
     class="login"
     mat-mini-fab
