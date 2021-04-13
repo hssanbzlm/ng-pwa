@@ -6,8 +6,8 @@ import { AuthenticationAdapter } from './../interfaces/authentication-adapter';
   providedIn: 'root',
 })
 export class CustomAuthAdapterService implements AuthenticationAdapter {
-  readonly type: string = 'CUSTOM_AUTH';
   constructor(private auth: CustomAuth) {}
+  readonly type: string = 'CUSTOM_AUTH';
 
   login(userName, password) {
     this.auth.login(userName, password);

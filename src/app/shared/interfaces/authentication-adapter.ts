@@ -3,4 +3,5 @@ export interface AuthenticationAdapter {
   logout();
   isAuthenticated();
   isLoading();
+  type: string;
 }
