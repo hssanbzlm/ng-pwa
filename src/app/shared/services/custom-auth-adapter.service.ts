@@ -9,7 +9,7 @@ export class CustomAuthAdapterService implements AuthenticationAdapter {
   constructor(private auth: CustomAuth) {}
   readonly type: string = 'CUSTOM_AUTH';
 
-  login(userName, password) {
+  login(userName?, password?) {
     this.auth.login(userName, password);
   }
   logout() {

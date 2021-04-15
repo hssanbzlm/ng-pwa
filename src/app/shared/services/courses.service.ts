@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Course } from '../interfaces/course.interface';
 import { environment } from '../../../environments/environment';
+import { v1 as uuidv1 } from 'uuid';
 
 const BASE_URL = environment.coursesBaseUrl;
 @Injectable({
@@ -16,7 +17,7 @@ export class CoursesService {
   }
 
   createCourse(course: Course) {
-    course.id = Math.random() * 99 + 1;
+    course.id = uuidv1();
     return this.http.post<Course>(BASE_URL, course);
   }
 

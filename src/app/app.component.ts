@@ -18,7 +18,7 @@ export class AppComponent {
   ];
 
   constructor(
-    public authService: Auth0AdapterService,
+    public authService: CustomAuthAdapterService,
     private updates: SwUpdate,
     private router: Router
   ) {

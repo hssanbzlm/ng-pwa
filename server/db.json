@@ -1,16 +1,25 @@
 {
   "courses": [
     {
-      "title": "dsfsfd",
-      "description": "dsfsdf",
-      "percentComplete": 30,
-      "id": 79.37068050368948
+      "id": "99eb7c60-9df4-11eb-9c22-39d85bbf3bfa",
+      "title": "secondssssezrzer",
+      "description": "seconddezerezd",
+      "percentComplete": 21,
+      "favorite": false
     },
     {
-      "title": "dsfsfd",
-      "description": "dsfsdf",
-      "percentComplete": 23,
-      "id": 79.37068050368948
+      "id": "a581f270-9df4-11eb-9c22-39d85bbf3bfa",
+      "title": "firsttt",
+      "description": "firsttt",
+      "percentComplete": 25,
+      "favorite": false
+    },
+    {
+      "id": "b2bffe00-9df4-11eb-9c22-39d85bbf3bfa",
+      "title": "abcdeeee",
+      "description": "efhg",
+      "percentComplete": 12,
+      "favorite": false
     }
   ]
 }
